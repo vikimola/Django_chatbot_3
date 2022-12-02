@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+</head>
+<body style="background-color: purple">
+<style>
+a:link {
+  color: green;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:visited {
+  color: pink;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:hover {
+  color: red;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+a:active {
+  color: yellow;
+  background-color: transparent;
+  text-decoration: underline;
+}
+</style>
+
+<nav>
+<a href="/">Go to home page</a>
+</nav>
+
+
+
+<h1 style="color:white">Welcome to {{room_name}}</h1>
+<p>Room id: {{room_id}}</p>
+<br>
+
+
+<div id="display">
+</div>
+
+
+<script>
+<!-- oce we load this docu-> do the things in function-->
+$(document).ready(function(){
+
+<!--function; SetInterval -> basicly for loop for a set amount of time (1000 -> every second)-->
+setInterval(function(){
+    $.ajax({
+
+<!--    method -->
+        type: 'GET',
+
+<!--        url -->
+        url : "/getMessages/{{room_name}}/",
+
+<!--        if successful -->
+        success: function(response){
+            console.log(response);
+            $("#display").empty();
+            for (var key in response.messages)
+            {
+                var temp="<div class='container darker'><h3>"+response.messages[key].username+"</h3><p>"+response.messages[key].contents+"</p><span class='time-left'>"+response.messages[key].timestamp+"<br><br><br></span></div>";
+                $("#display").append(temp);
+            }
+        },
+
+<!--        if not successful-->
+        error: function(response){
+            alert('An error occurred')
+        }
+    });
+},1000);
+})
+
+
+</script>
+
+
+
+<form id="post-form">
+    {% csrf_token %}
+
+<h2>Username: {{username}} </h2>
+<input type="hidden" name="username" id="username" value="{{username}}">
+<input type="hidden" name="room_id" id="room_id" value="{{room_id}}">
+<input type="text" name="contents"  id="contents" >
+    <br>
+    <br>
+    <input type="submit" value="Send">
+
+</form>
+
+</body>
+
+<script type="text/javascript">
+
+    <!--when submit button in the form above is pushed -> function e-->
+  $(document).on('submit','#post-form',function(e){
+
+<!--  this prevents page from reloading when message is sent -->
+    e.preventDefault();
+
+<!--ajax sends to database (using it like a method) -->
+    $.ajax({
+
+<!--    type == method -->
+      type:'POST',
+
+<!--      idek-->
+      url:'/send',
+
+<!--      data to be forwarded (data from the form)-->
+      data:{
+          username:$('#username').val(),
+          room_id:$('#room_id').val(),
+          contents:$('#contents').val(),
+
+<!--          csrf token -->
+        csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+      },
+
+<!--      in case of success-> this function -->
+      success: function(data){
+<!--        alert(data)-->
+      }
+    });
+    document.getElementById('message').value = ''
+  });
+
+
+
+
+</script>
+<br>
+<br>
+<!--<form method="GET" action="/">-->
+<!--    <h3>Go homepage!</h3>-->
+<!--    <input type="button" value="Go">-->
+
+<!--</form>-->
+
+<!--<h3>Go homepage!</h3>-->
+
+</html>

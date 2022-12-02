@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body style="background-color: purple">
+<style>
+a:link {
+  color: green;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:visited {
+  color: pink;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:hover {
+  color: red;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+a:active {
+  color: yellow;
+  background-color: transparent;
+  text-decoration: underline;
+}
+</style>
+
+<nav>
+<a href="/">Go to home page</a>
+</nav>
+
+
+<h1 style="color: white">Log in!</h1>
+
+<br>
+{% for message in messages %}
+<h1 style="color:white"> {{message}} </h1>
+{% endfor %}
+<br>
+
+<form method="POST" action="log_in">
+    {% csrf_token %}
+
+    <h2>Username:</h2>
+    <input type="text" name="username">
+
+    <h2>Password:</h2>
+    <input type="text" name="password">
+
+    <br>
+    <br>
+    <br>
+
+    <input type="submit" value="Log in">
+
+</form>
+
+
+</body>
+</html>

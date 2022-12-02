@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body style="background-color: purple">
+<style>
+a:link {
+  color: green;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:visited {
+  color: pink;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:hover {
+  color: red;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+a:active {
+  color: yellow;
+  background-color: transparent;
+  text-decoration: underline;
+}
+</style>
+
+
+<h1 style="color: white" >ChatApp</h1>
+<br>
+{% if user.is_authenticated %}
+<h2>User: {{user.get_username}} </h2>
+<br>
+
+<form method="POST" action="room_checker" >
+    {% csrf_token %}
+
+    <h2>Room Name:</h2>
+    <input type="text" name="room_name" id="room_name">
+
+<!--    <input type="hidden" name="username" id ="username" value="{{user.get_username}}">-->
+    <br>
+    <br>
+    <input type="submit" value="GO">
+
+</form>
+
+{% else %}
+
+<br>
+<style>
+a:link {
+  color: green;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:visited {
+  color: pink;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:hover {
+  color: red;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+a:active {
+  color: yellow;
+  background-color: transparent;
+  text-decoration: underline;
+}
+</style>
+
+<a href="log_in">Go to log in page</a>
+
+<!--<form method="POST" action="room_checker" >-->
+<!--    {% csrf_token %}-->
+<!--    <h2>Username:</h2>-->
+<!--    <input type="text" name="username" id="username">-->
+<!--    <h2>Room Name:</h2>-->
+<!--    <input type="text" name="room_name" id="room_name">-->
+<!--    <br>-->
+<!--    <br>-->
+<!--    <input type="submit" value="GO">-->
+
+<!--</form>-->
+
+{% endif %}
+
+</body>
+</html>

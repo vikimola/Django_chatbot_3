@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body style="background-color: purple">
+<style>
+a:link {
+  color: green;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:visited {
+  color: pink;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:hover {
+  color: red;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+a:active {
+  color: yellow;
+  background-color: transparent;
+  text-decoration: underline;
+}
+</style>
+
+{% if user.is_authenticated %}
+<h1 style="color: white">{{user.get_username}}, welcome to ChatApp!</h1>
+<br>
+{% else %}
+<h1 style="color: white">Welcome to ChatApp!</h1>
+<br>
+{% endif %}
+
+
+<nav>
+<a href="log_out">Log out</a>
+
+<br>
+<br>
+<br>
+
+
+<a href="log_in">Log in here</a>
+<!--<h2>Log in here:</h2>-->
+<!--<form action = "log_in/">-->
+<!--    <button type="submit">Go</button>-->
+<!--</form>-->
+
+<br>
+<br>
+<br>
+
+<!--<h2>Register here:</h2>-->
+<!--<form action = "register/">-->
+<!--    <button type="submit">Go</button>-->
+<!--</form>-->
+<a href="register">Register here</a>
+</nav>
+</body>
+</html>
